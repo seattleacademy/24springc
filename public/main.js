@@ -28,6 +28,15 @@
     onResize();
 
 
+    function onKeyDown(e){
+      console.log("e",e);
+      if(e.key=="c"){
+        onClearEvent();
+      }
+    }
+
+    $("body").keydown(onKeyDown);
+
     function drawBot(x, y, r, theta, color, emit) {
         context.beginPath();
         console.log("drawBot", x, y, r, theta, color, emit);
@@ -44,7 +53,22 @@
         // var w = canvas.width;
         // var h = canvas.height;
 
-        socket.emit('drawing', {
+        // socket.emit('drawing', {
+        //     // x0: x0 / w,
+        //     // y0: y0 / h,
+        //     // x1: x1 / w,
+        //     // y1: y1 / h,
+        //     // color: color,
+        //     x: x,
+        //     y: y,
+        //     r: r,
+        //     theta: theta,
+        //     color: color
+        // });
+    }
+
+function emitBot(x, y, r, theta, color, emit){
+          socket.emit('drawing', {
             // x0: x0 / w,
             // y0: y0 / h,
             // x1: x1 / w,
@@ -56,8 +80,7 @@
             theta: theta,
             color: color
         });
-    }
-
+}
     function onMouseDown(e) {
         drawing = true;
         current.x = e.clientX;
@@ -68,7 +91,7 @@
         if (!drawing) {
             return; }
         drawing = false;
-        drawBot(e.clientX, e.clientY, 10, 0, current.color, true);
+        emitBot(e.clientX, e.clientY, 10, 0, current.color, true);
     }
 
     // function onMouseMove(e){

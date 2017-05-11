@@ -23,9 +23,9 @@ function botStatus(data) {
 
 function onConnection(socket) {
     function drawAllBots() {
-    	socket.broadcast.emit('clear', "");
+    	socket.emit('clear', "");
         for (i = 0; i < bots.length; i++) {
-            socket.broadcast.emit('drawing', bots[i]);
+            socket.emit('drawing', bots[i]);
         }
     }
 
